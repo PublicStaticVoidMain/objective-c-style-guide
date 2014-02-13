@@ -54,15 +54,17 @@ UIApplication.sharedApplication.delegate;
 ## Spacing
 
 * Indent using 4 spaces. Never indent with tabs. Be sure to set this preference in Xcode.
-* Method braces and other braces (`if`/`else`/`switch`/`while` etc.) always open on the same line as the statement but close on a new line.
+* Method braces and other braces (`if`/`else`/`switch`/`while` etc.) always open and close on a new line.
 
 **For example:**
 ```objc
-if (user.isHappy) {
-//Do something
+if (user.isHappy)
+{
+    //Do something
 }
-else {
-//Do something else
+else
+{
+    //Do something else
 }
 ```
 * There should be exactly one blank line between methods to aid in visual clarity and organization. Whitespace within methods should separate functionality, but often there should probably be new methods.
@@ -74,7 +76,8 @@ Conditional bodies should always use braces even when a conditional body could b
 
 **For example:**
 ```objc
-if (!error) {
+if (!error)
+{
     return success;
 }
 ```
@@ -112,7 +115,8 @@ When methods return an error parameter by reference, switch on the returned valu
 **For example:**
 ```objc
 NSError *error;
-if (![self trySomethingWithError:&error]) {
+if (![self trySomethingWithError:&error])
+{
     // Handle Error
 }
 ```
@@ -121,7 +125,8 @@ if (![self trySomethingWithError:&error]) {
 ```objc
 NSError *error;
 [self trySomethingWithError:&error];
-if (error) {
+if (error)
+{
     // Handle Error
 }
 ```
@@ -157,7 +162,8 @@ Property definitions should be used in place of naked instance variables wheneve
 **Not:**
 
 ```objc
-@interface NYTSection : NSObject {
+@interface NYTSection : NSObject
+{
     NSString *headline;
 }
 ```
@@ -223,9 +229,11 @@ Block comments should generally be avoided, as code should be as self-documentin
 `init` methods should be structured like this:
 
 ```objc
-- (instancetype)init {
+- (instancetype)init
+{
     self = [super init]; // or call the designated initalizer
-    if (self) {
+    if (self)
+    {
         // Custom initialization
     }
 
@@ -310,7 +318,8 @@ When using `enum`s, it is recommended to use the new fixed underlying type speci
 **Example:**
 
 ```objc
-typedef NS_ENUM(NSInteger, NYTAdRequestState) {
+typedef NS_ENUM(NSInteger, NYTAdRequestState)
+{
     NYTAdRequestStateInactive,
     NYTAdRequestStateLoading
 };
@@ -352,14 +361,16 @@ This allows for more consistency across files and greater visual clarity.
 **For example:**
 
 ```objc
-if (!someObject) {
+if (!someObject)
+{
 }
 ```
 
 **Not:**
 
 ```objc
-if (someObject == nil) {
+if (someObject == nil)
+{
 }
 ```
 
@@ -392,7 +403,8 @@ Text and example taken from the [Cocoa Naming Guidelines](https://developer.appl
 
 Singleton objects should use a thread-safe pattern for creating their shared instance.
 ```objc
-+ (instancetype)sharedInstance {
++ (instancetype)sharedInstance
+{
    static id sharedInstance = nil;
 
    static dispatch_once_t onceToken;
