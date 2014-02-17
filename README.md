@@ -15,6 +15,8 @@ Here are some of the documents from Apple that informed the style guide. If some
 
 ## Table of Contents
 
+* [Project Structure](#project-structure)
+* [Unit Testing](unit-testing)
 * [Dot-Notation Syntax](#dot-notation-syntax)
 * [Spacing](#spacing)
 * [Conditionals](#conditionals)
@@ -34,6 +36,10 @@ Here are some of the documents from Apple that informed the style guide. If some
 * [Booleans](#booleans)
 * [Singletons](#singletons)
 * [Xcode Project](#xcode-project)
+
+## Project Structure
+
+## Unit Testing
 
 ## Dot-Notation Syntax
 
@@ -199,11 +205,12 @@ UIButton *settingsButton;
 UIButton *setBut;
 ```
 
-A three letter prefix (e.g. `NYT`) should always be used for class names and constants, however may be omitted for Core Data entity names. Constants should be camel-case with all words capitalized and prefixed by the related class name for clarity.
+The `KR` prefix should always be used for class names and constants, however may be omitted for Core Data entity names. Constants should be camel-case with all words capitalized and named for clarity. If exposed in the header, they should be prefixed with the related class name.
 
 **For example:**
 
 ```objc
+static const NSTimeInterval NYTNavigationFadeAnimationDuration = 0.3;
 static const NSTimeInterval NYTArticleViewControllerNavigationFadeAnimationDuration = 0.3;
 ```
 
@@ -367,7 +374,7 @@ Images that are used for a similar purpose should be grouped in respective group
 
 ## Booleans
 
-Since `nil` resolves to `NO` it is unnecessary to compare it in conditions. Never compare something directly to `YES`, because `YES` is defined to 1 and a `BOOL` can be up to 8 bits.
+Since `nil` resolves to `NO` it is unnecessary to compare it in conditions. [Never compare something directly](http://blog.bignerdranch.com/564-bools-sharp-corners/) to `YES`, because `YES` is defined to 1 and a `BOOL` can be up to 8 bits.
 
 This allows for more consistency across files and greater visual clarity.
 
@@ -393,7 +400,7 @@ if (someObject == nil)
 
 ```objc
 if (isAwesome)
-if (![someObject boolValue])
+if ([someObject boolValue] == NO)
 ```
 
 **Not:**
@@ -414,7 +421,7 @@ Text and example taken from the [Cocoa Naming Guidelines](https://developer.appl
 
 ## Singletons
 
-Singleton objects should use a thread-safe pattern for creating their shared instance.
+Singleton objects should only be considered aa a last resort as their state lives for the lifetime of the application, making them harder to test. If used, they should use a thread-safe pattern for creating their shared instance.
 ```objc
 + (instancetype)sharedInstance
 {
