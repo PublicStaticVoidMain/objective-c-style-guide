@@ -1,8 +1,6 @@
 # Objective-C Style Guide
 
-This style guide outlines the coding conventions of the iOS team at The New York Times. We welcome your feedback in [issues](https://github.com/NYTimes/objetive-c-style-guide/issues), [pull requests](https://github.com/NYTimes/objetive-c-style-guide/pulls) and [tweets](https://twitter.com/nytimesmobile). Also, [we're hiring](http://jobs.nytco.com/job/New-York-iOS-Developer-Job-NY/2572221/).
-
-Thanks to all of [our contributors](https://github.com/NYTimes/objective-c-style-guide/contributors).
+This style guide outlines the coding conventions of the iOS team at The New York Times. 
 
 ## Introduction
 
@@ -17,6 +15,7 @@ Here are some of the documents from Apple that informed the style guide. If some
 
 * [Project Structure](#project-structure)
 * [Unit Testing](unit-testing)
+* [Class Definitions](#class-definitions)
 * [Dot-Notation Syntax](#dot-notation-syntax)
 * [Spacing](#spacing)
 * [Conditionals](#conditionals)
@@ -39,7 +38,55 @@ Here are some of the documents from Apple that informed the style guide. If some
 
 ## Project Structure
 
+Classes should be written with the Single Responsibility Principle in mind. Keeping classes small and focused will allow for less error prone code and easier reading. The project is made up of several types of objects but the below pattern is what should be followed going forward.
+
+#### View
+Layout code. Is told what it needs to know to lay itself out.
+
+#### View Controller
+Receives callbacks from events that take place in the view and hands them off as needed to other layers.
+
+#### Data Controller
+Business logic. View controllers call into this layer to perform actions or retrieve data in line with feature requirements.
+
+#### Communicator
+Network logic. The data controller calls and passes required information to this layer then calls out to endpoints.
+
+#### Importer
+Core data logic. This when the communicator receives a response, it passes the raw data to an importer class and it parses the data into Core Data.
+
+#### Builder
+This kind of object can be used when multiple steps are needed to build an object or collection of objects.
+
 ## Unit Testing
+
+
+
+## Class Definitions
+
+Do not import other classes in the header file except for the superclass header. Instead, use `@class` to make a forward declaration. For protocols, use `@protocol` to make a forward declaration.
+
+**For example:**
+```objc
+@class MyOtherClass;
+
+@interface MyClass : NSObject
+
+@property (nonatomic, strong) MyOtherClass property;
+
+@end
+```
+
+**Not:**
+```objc
+#import "MyOtherClass.h"
+
+@interface MyClass : NSObject
+
+@property (nonatomic, strong) MyOtherClass property;
+
+@end
+```
 
 ## Dot-Notation Syntax
 
